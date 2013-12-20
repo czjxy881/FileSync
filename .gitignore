@@ -3,8 +3,8 @@
 #################
 
 *.pydevproject
-.project
-.metadata
+#.project
+#.metadata
 bin/
 tmp/
 *.tmp
@@ -13,8 +13,8 @@ tmp/
 *~.nib
 local.properties
 .classpath
-.settings/
-.loadpath
+#.settings/
+#.loadpath
 
 # External tool builders
 .externalToolBuilders/
