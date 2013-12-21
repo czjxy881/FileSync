@@ -155,7 +155,9 @@ class FileTree extends JTree {
                 FileNode fileNode = (FileNode) lastTreeNode.getUserObject();
                 
                 System.out.println(fileNode.file.getAbsolutePath() );
+                jc.setSelectedItem(fileNode.file.getAbsolutePath() ); //jxy set selected
                 jc.addItem(fileNode.file.getAbsolutePath());
+                
                 if (!fileNode.isInit) {
                     File[] files;
                     if (fileNode.isDummyRoot) {
