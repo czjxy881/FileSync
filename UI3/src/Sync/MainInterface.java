@@ -77,7 +77,7 @@ public class MainInterface extends JFrame {
 		
 		JButton btnNewButton_2 = new JButton("");
 		btnNewButton_2.setBackground(Color.WHITE);
-		btnNewButton_2.setIcon(new ImageIcon("C:\\Users\\Michael\\Desktop\\QQ\u56FE\u724720131214110529.jpg"));
+		btnNewButton_2.setIcon(new ImageIcon(MainInterface.class.getResource("/Sync/Images/goback.jpg")));
 		btnNewButton_2.setBounds(70, 0, 16, 21);
 		panel.add(btnNewButton_2);
 		

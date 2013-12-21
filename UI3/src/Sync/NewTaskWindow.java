@@ -80,6 +80,7 @@ public class NewTaskWindow extends JFrame {
 		contentPane.add(label_2);
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setEditable(true);
 		comboBox.setBounds(95, 100, 198, 21);
 		contentPane.add(comboBox);
 		
@@ -92,6 +93,7 @@ public class NewTaskWindow extends JFrame {
 		contentPane.add(label_3);
 		
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setEditable(true);
 		comboBox_1.setBounds(95, 131, 198, 21);
 		contentPane.add(comboBox_1);
 		
