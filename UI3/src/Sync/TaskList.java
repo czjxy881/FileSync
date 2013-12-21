@@ -5,24 +5,35 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.BevelBorder;
 
-public class TaskList
+public class TaskList extends JFrame
 {
 	/**
 	 * @wbp.nonvisual location=-3,39
 	 */
 	private static final Box horizontalBox = Box.createHorizontalBox();
 
-	public static void main(String[] args)
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TaskList frame = new TaskList();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public TaskList()
 	{
-		JFrame.setDefaultLookAndFeelDecorated(true);
+		setDefaultLookAndFeelDecorated(true);
 		
-		JFrame frame=new JFrame();
-		frame.setTitle("任务列表");
-		frame.setSize(800,514);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setTitle("任务列表");
+		setSize(800,514);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JPanel pan=new JPanel();
-		frame.setContentPane(pan);
+		setContentPane(pan);
 		pan.setLayout(null);
 		
 		JButton StartButton = new JButton("");
@@ -78,8 +89,5 @@ public class TaskList
 		DeleteButton.setBorder(new BevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		DeleteButton.setBounds(256, 0, 76, 38);
 		pan.add(DeleteButton);
-		
-		frame.setVisible(true);
-
 	}
 }
