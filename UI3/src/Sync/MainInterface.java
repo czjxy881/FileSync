@@ -47,7 +47,7 @@ import javax.swing.JTree;
 public class MainInterface extends JFrame {
 
 	private JPanel contentPane;
-
+	public static JComboBox comboBox = new JComboBox();/*czq set comboBox to static*/
 	/**
 	 * Launch the application.
 	 */
@@ -87,7 +87,6 @@ public class MainInterface extends JFrame {
 		btnNewButton.setBounds(0, 0, 50, 36);
 		panel.add(btnNewButton);
 		
-		JComboBox comboBox = new JComboBox();
 		comboBox.setEditable(true);
 		comboBox.setBounds(90, 0, 395, 21);
 		panel.add(comboBox);
@@ -106,7 +105,8 @@ public class MainInterface extends JFrame {
 		JButton btnn = new JButton("<html>新建<br>任务<html>");
 		btnn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewTaskWindow.main(null);
+				NewTaskWindow newTaskWindow=new NewTaskWindow(comboBox);
+				newTaskWindow.setVisible(true);
 			}
 		});
 		btnn.setMargin(new Insets(0, 0, 0, 0));
@@ -131,7 +131,7 @@ public class MainInterface extends JFrame {
 		//JScrollPane scrollPane = new JScrollPane();
 		//scrollPane.setBounds(77, 55, 413, 253);
 		//contentPane.add(scrollPane);
-		FileTree fileTree=new FileTree(comboBox);
+		FileTree fileTree=new FileTree();
 		FileTreeModel model=new FileTreeModel(new DefaultMutableTreeNode(new FileNode("root",null,null,true)));
         fileTree.setModel(model);
         fileTree.setCellRenderer(new FileTreeRenderer());
@@ -145,7 +145,7 @@ public class MainInterface extends JFrame {
 class FileTree extends JTree {
     public TreePath mouseInPath;
     protected FileSystemView fileSystemView = FileSystemView.getFileSystemView();
-    public FileTree(final JComboBox jc){
+    public FileTree(){
         setRootVisible(false);
       //  addTreeExpansionListener(tel);
         addTreeWillExpandListener(new TreeWillExpandListener() {
@@ -154,9 +154,10 @@ class FileTree extends JTree {
                 DefaultMutableTreeNode lastTreeNode =(DefaultMutableTreeNode) event.getPath().getLastPathComponent();
                 FileNode fileNode = (FileNode) lastTreeNode.getUserObject();
                 
-                System.out.println(fileNode.file.getAbsolutePath() );
-                jc.setSelectedItem(fileNode.file.getAbsolutePath() ); //jxy set selected
-                jc.addItem(fileNode.file.getAbsolutePath());
+                //System.out.println(fileNode.file.getAbsolutePath() );
+                /*czq set comboBox to static*/
+                MainInterface.comboBox.setSelectedItem(fileNode.file.getAbsolutePath() ); //jxy set selected
+                MainInterface.comboBox.addItem(fileNode.file.getAbsolutePath());
                 
                 if (!fileNode.isInit) {
                     File[] files;
