@@ -1,4 +1,4 @@
-package Sycn;
+package Sync;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -17,8 +17,8 @@ public class TaskList
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		
 		JFrame frame=new JFrame();
-		frame.setTitle("Mandy");
-		frame.setSize(800,600);
+		frame.setTitle("任务列表");
+		frame.setSize(800,514);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JPanel pan=new JPanel();
@@ -32,7 +32,7 @@ public class TaskList
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		StartButton.setIcon(new ImageIcon("C:\\Users\\Michael\\Desktop\\resources\\FFS_tray_24x24.png"));
+		StartButton.setIcon(new ImageIcon(TaskList.class.getResource("/Sync/Images/sync.png")));
 		StartButton.setBorder(new BevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		pan.add(StartButton);
 		
@@ -43,8 +43,8 @@ public class TaskList
 		JMenuBar menuBar = new JMenuBar();
 		scrollPane.setColumnHeaderView(menuBar);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("\u4EFB\u52A1\u540D\u79F0");
-		menuBar.add(mntmNewMenuItem);
+		JCheckBox checkBox = new JCheckBox("\u4EFB\u52A1\u540D\u79F0");
+		menuBar.add(checkBox);
 		
 		JMenuItem menuItem = new JMenuItem("\u6E90\u76EE\u5F55");
 		menuBar.add(menuItem);
@@ -59,21 +59,21 @@ public class TaskList
 		menuBar.add(menuItem_3);
 		
 		JButton PauseButton = new JButton("");
-		PauseButton.setIcon(new ImageIcon("C:\\Users\\Michael\\Desktop\\QQ\u622A\u56FE20131221001341.png"));
+		PauseButton.setIcon(new ImageIcon(TaskList.class.getResource("/Sync/Images/pause.png")));
 		PauseButton.setToolTipText("\u6682\u505C\u4EFB\u52A1");
 		PauseButton.setBorder(new BevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		PauseButton.setBounds(99, 0, 76, 38);
 		pan.add(PauseButton);
 		
 		JButton StopButton = new JButton("");
-		StopButton.setIcon(new ImageIcon("C:\\Users\\Michael\\Desktop\\QQ\u622A\u56FE20131221001229.png"));
+		StopButton.setIcon(new ImageIcon(TaskList.class.getResource("/Sync/Images/stop.png")));
 		StopButton.setToolTipText("\u505C\u6B62\u4EFB\u52A1");
 		StopButton.setBorder(new BevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		StopButton.setBounds(178, 0, 76, 38);
 		pan.add(StopButton);
 		
 		JButton DeleteButton = new JButton("");
-		DeleteButton.setIcon(new ImageIcon("C:\\Users\\Michael\\Desktop\\QQ\u622A\u56FE20131221001445.png"));
+		DeleteButton.setIcon(new ImageIcon(TaskList.class.getResource("/Sync/Images/delete.png")));
 		DeleteButton.setToolTipText("\u5220\u9664\u4EFB\u52A1");
 		DeleteButton.setBorder(new BevelBorder(BevelBorder.RAISED, Color.LIGHT_GRAY, null, null, null));
 		DeleteButton.setBounds(256, 0, 76, 38);

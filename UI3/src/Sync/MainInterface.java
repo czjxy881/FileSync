@@ -1,4 +1,4 @@
-package Sycn;
+package Sync;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

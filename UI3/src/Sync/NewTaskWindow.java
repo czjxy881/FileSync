@@ -1,4 +1,4 @@
-package Sycn;
+package Sync;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -12,6 +12,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -98,12 +100,18 @@ public class NewTaskWindow extends JFrame {
 		contentPane.add(button);
 		
 		JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TaskList.main(null);
+			}
+		});
 		button_1.setBounds(218, 200, 93, 23);
 		contentPane.add(button_1);
 		
 		JButton button_2 = new JButton("\u53D6\u6D88");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
 		button_2.setBounds(331, 200, 93, 23);
