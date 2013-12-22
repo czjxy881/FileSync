@@ -17,13 +17,19 @@ import javax.swing.WindowConstants;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 
 public class NewTaskWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	public static JComboBox comboBox=new JComboBox<>();
+	public static JComboBox tcomboBox=new JComboBox<>();
+	JFileChooser jfc=new JFileChooser();
+	JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
+	JButton button_2 = new JButton("\u53D6\u6D88");
+	JComboBox comboBox = new JComboBox();//源目录
+	JComboBox comboBox_1 = new JComboBox();//源目录
 	/**
 	 * Launch the application.
 	 */
@@ -31,7 +37,7 @@ public class NewTaskWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewTaskWindow frame = new NewTaskWindow(comboBox);
+					NewTaskWindow frame = new NewTaskWindow(tcomboBox);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,7 +86,7 @@ public class NewTaskWindow extends JFrame {
 		label_2.setBounds(31, 103, 54, 15);
 		contentPane.add(label_2);
 		
-		JComboBox comboBox = new JComboBox();//源目录
+	//	JComboBox comboBox = new JComboBox();//源目录
 		comboBox.setEditable(true);
 		comboBox.setBounds(95, 100, 198, 21);
 		contentPane.add(comboBox);
@@ -93,7 +99,7 @@ public class NewTaskWindow extends JFrame {
 		label_3.setBounds(31, 136, 54, 15);
 		contentPane.add(label_3);
 		
-		JComboBox comboBox_1 = new JComboBox();//目标目录
+		//JComboBox comboBox_1 = new JComboBox();//目标目录
 		comboBox_1.setEditable(true);
 		comboBox_1.setBounds(95, 131, 198, 21);
 		contentPane.add(comboBox_1);
@@ -101,7 +107,7 @@ public class NewTaskWindow extends JFrame {
 		button.setBounds(303, 130, 69, 23);
 		contentPane.add(button);
 		
-		JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
+		//JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				TaskList.main(null);
@@ -110,7 +116,7 @@ public class NewTaskWindow extends JFrame {
 		button_1.setBounds(218, 200, 93, 23);
 		contentPane.add(button_1);
 		
-		JButton button_2 = new JButton("\u53D6\u6D88");
+		//JButton button_2 = new JButton("\u53D6\u6D88");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -118,9 +124,34 @@ public class NewTaskWindow extends JFrame {
 		});
 		button_2.setBounds(331, 200, 93, 23);
 		contentPane.add(button_2);
+		jfc.setCurrentDirectory(new File("d:\\"));
+		//button_1.addActionListener();
 		
-		JFileChooser jfc1=new JFileChooser();
-		jfc1.setBounds(10, 41, 32, -25);
-		button_1.add(jfc1);	
+	}
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource().equals(button_1)){//判断触发方法的按钮是哪个
+			jfc.setFileSelectionMode(1);//设定只能选择到文件夹
+			int state=jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
+			if(state==1){
+				return;//撤销则返回
+			}
+			else{
+				File f=jfc.getSelectedFile();//f为选择到的目录
+				comboBox.setSelectedItem(f.getAbsolutePath());
+			}
+		}
+		if(e.getSource().equals(button_2)){
+			jfc.setFileSelectionMode(0);//设定只能选择到文件
+			int state=jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
+			if(state==1){
+				return;//撤销则返回
+			}
+			else{
+				File f=jfc.getSelectedFile();//f为选择到的文件
+				comboBox_1.setSelectedItem(f.getAbsolutePath());
+			}
+		}
 	}
 }
+
