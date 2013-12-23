@@ -25,11 +25,13 @@ public class NewTaskWindow extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	public static JComboBox tcomboBox=new JComboBox<>();
-	JFileChooser jfc=new JFileChooser();
-	JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
-	JButton button_2 = new JButton("\u53D6\u6D88");
-	JComboBox comboBox = new JComboBox();//源目录
-	JComboBox comboBox_1 = new JComboBox();//源目录
+	static JFileChooser jfc=new JFileChooser();
+	static JButton button_1 = new JButton("\u4E0B\u4E00\u6B65");
+	static JButton button_2 = new JButton("\u53D6\u6D88");
+	static JComboBox comboBox = new JComboBox();//源目录
+	static JComboBox comboBox_1 = new JComboBox();//源目录
+	static JButton btnBrowse = new JButton("Browse");
+	static JButton button = new JButton("Browse");
 	/**
 	 * Launch the application.
 	 */
@@ -91,7 +93,6 @@ public class NewTaskWindow extends JFrame {
 		comboBox.setBounds(95, 100, 198, 21);
 		contentPane.add(comboBox);
 		comboBox.setSelectedItem(jc.getSelectedItem());
-		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.setBounds(303, 99, 69, 23);
 		contentPane.add(btnBrowse);
 		
@@ -103,7 +104,7 @@ public class NewTaskWindow extends JFrame {
 		comboBox_1.setEditable(true);
 		comboBox_1.setBounds(95, 131, 198, 21);
 		contentPane.add(comboBox_1);
-		JButton button = new JButton("Browse");
+		//JButton button = new JButton("Browse");
 		button.setBounds(303, 130, 69, 23);
 		contentPane.add(button);
 		
@@ -124,34 +125,42 @@ public class NewTaskWindow extends JFrame {
 		});
 		button_2.setBounds(331, 200, 93, 23);
 		contentPane.add(button_2);
-		jfc.setCurrentDirectory(new File("d:\\"));
-		//button_1.addActionListener();
+		jfc.setCurrentDirectory(new File("c:\\"));
+		contentPane.add(jfc);
+		chooseFile cf=new chooseFile();
+		btnBrowse.addActionListener(cf );
+		button.addActionListener(cf);
 		
 	}
-	public void actionPerformed(ActionEvent e)
-	{
-		if(e.getSource().equals(button_1)){//判断触发方法的按钮是哪个
-			jfc.setFileSelectionMode(1);//设定只能选择到文件夹
-			int state=jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
+	
+}
+
+class chooseFile  implements ActionListener{//czq add 选择文件的类
+
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource().equals(NewTaskWindow.btnBrowse)){//判断触发方法的按钮是哪个
+			NewTaskWindow.jfc.setFileSelectionMode(1);//设定只能选择到文件夹
+			int state=NewTaskWindow.jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
 			if(state==1){
 				return;//撤销则返回
 			}
 			else{
-				File f=jfc.getSelectedFile();//f为选择到的目录
-				comboBox.setSelectedItem(f.getAbsolutePath());
+				File f=NewTaskWindow.jfc.getSelectedFile();//f为选择到的目录
+				NewTaskWindow.comboBox.setSelectedItem(f.getAbsolutePath());
 			}
 		}
-		if(e.getSource().equals(button_2)){
-			jfc.setFileSelectionMode(0);//设定只能选择到文件
-			int state=jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
+		if(e.getSource().equals(NewTaskWindow.button)){
+			NewTaskWindow.jfc.setFileSelectionMode(1);//设定只能选择到文件
+			int state=NewTaskWindow.jfc.showOpenDialog(null);//此句是打开文件选择器界面的触发语句
 			if(state==1){
 				return;//撤销则返回
 			}
 			else{
-				File f=jfc.getSelectedFile();//f为选择到的文件
-				comboBox_1.setSelectedItem(f.getAbsolutePath());
+				File f=NewTaskWindow.jfc.getSelectedFile();//f为选择到的文件
+				NewTaskWindow.comboBox_1.setSelectedItem(f.getAbsolutePath());
 			}
 		}
 	}
+	
 }
-

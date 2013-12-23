@@ -1,4 +1,4 @@
-package tt;
+package Sync;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
