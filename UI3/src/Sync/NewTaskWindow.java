@@ -18,6 +18,7 @@ import javax.swing.WindowConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.awt.Insets;
 
 
 public class NewTaskWindow extends JFrame {
@@ -93,6 +94,7 @@ public class NewTaskWindow extends JFrame {
 		comboBox.setBounds(95, 100, 198, 21);
 		contentPane.add(comboBox);
 		comboBox.setSelectedItem(jc.getSelectedItem());
+		btnBrowse.setMargin(new Insets(0, 0, 0, 0));
 		btnBrowse.setBounds(303, 99, 69, 23);
 		contentPane.add(btnBrowse);
 		
@@ -100,10 +102,11 @@ public class NewTaskWindow extends JFrame {
 		label_3.setBounds(31, 136, 54, 15);
 		contentPane.add(label_3);
 		
-		//JComboBox comboBox_1 = new JComboBox();//Ä¿±êÄ¿Â¼
+		//JComboBox comboBox_1 = new JComboBox();//Ä¿ï¿½ï¿½Ä¿Â¼
 		comboBox_1.setEditable(true);
 		comboBox_1.setBounds(95, 131, 198, 21);
 		contentPane.add(comboBox_1);
+		button.setMargin(new Insets(0, 0, 0, 0));
 		//JButton button = new JButton("Browse");
 		button.setBounds(303, 130, 69, 23);
 		contentPane.add(button);
@@ -135,29 +138,29 @@ public class NewTaskWindow extends JFrame {
 	
 }
 
-class chooseFile  implements ActionListener{//czq add Ñ¡ÔñÎÄ¼þµÄÀà
+class chooseFile  implements ActionListener{//czq add Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource().equals(NewTaskWindow.btnBrowse)){//ÅÐ¶Ï´¥·¢·½·¨µÄ°´Å¥ÊÇÄÄ¸ö
-			NewTaskWindow.jfc.setFileSelectionMode(1);//Éè¶¨Ö»ÄÜÑ¡Ôñµ½ÎÄ¼þ¼Ð
-			int state=NewTaskWindow.jfc.showOpenDialog(null);//´Ë¾äÊÇ´ò¿ªÎÄ¼þÑ¡ÔñÆ÷½çÃæµÄ´¥·¢Óï¾ä
+		if(e.getSource().equals(NewTaskWindow.btnBrowse)){//ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½Å¥ï¿½ï¿½ï¿½Ä¸ï¿½
+			NewTaskWindow.jfc.setFileSelectionMode(1);//ï¿½è¶¨Ö»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
+			int state=NewTaskWindow.jfc.showOpenDialog(null);//ï¿½Ë¾ï¿½ï¿½Ç´ï¿½ï¿½Ä¼ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(state==1){
-				return;//³·ÏúÔò·µ»Ø
+				return;//ï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½
 			}
 			else{
-				File f=NewTaskWindow.jfc.getSelectedFile();//fÎªÑ¡Ôñµ½µÄÄ¿Â¼
+				File f=NewTaskWindow.jfc.getSelectedFile();//fÎªÑ¡ï¿½ñµ½µï¿½Ä¿Â¼
 				NewTaskWindow.comboBox.setSelectedItem(f.getAbsolutePath());
 			}
 		}
 		if(e.getSource().equals(NewTaskWindow.button)){
-			NewTaskWindow.jfc.setFileSelectionMode(1);//Éè¶¨Ö»ÄÜÑ¡Ôñµ½ÎÄ¼þ
-			int state=NewTaskWindow.jfc.showOpenDialog(null);//´Ë¾äÊÇ´ò¿ªÎÄ¼þÑ¡ÔñÆ÷½çÃæµÄ´¥·¢Óï¾ä
+			NewTaskWindow.jfc.setFileSelectionMode(1);//ï¿½è¶¨Ö»ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½
+			int state=NewTaskWindow.jfc.showOpenDialog(null);//ï¿½Ë¾ï¿½ï¿½Ç´ï¿½ï¿½Ä¼ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			if(state==1){
-				return;//³·ÏúÔò·µ»Ø
+				return;//ï¿½ï¿½ï¿½ï¿½ï¿½ò·µ»ï¿½
 			}
 			else{
-				File f=NewTaskWindow.jfc.getSelectedFile();//fÎªÑ¡Ôñµ½µÄÎÄ¼þ
+				File f=NewTaskWindow.jfc.getSelectedFile();//fÎªÑ¡ï¿½ñµ½µï¿½ï¿½Ä¼ï¿½
 				NewTaskWindow.comboBox_1.setSelectedItem(f.getAbsolutePath());
 			}
 		}

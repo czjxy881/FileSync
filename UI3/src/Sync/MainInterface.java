@@ -82,20 +82,9 @@ public class MainInterface extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btnNewButton = new JButton("<html>返回<br>桌面<html>");
-		btnNewButton.setMargin(new Insets(0, 0, 0, 0));
-		btnNewButton.setBounds(0, 0, 50, 36);
-		panel.add(btnNewButton);
-		
 		comboBox.setEditable(true);
-		comboBox.setBounds(90, 0, 395, 21);
+		comboBox.setBounds(70, 0, 415, 21);
 		panel.add(comboBox);
-		//comboBox.addItem("a");
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setBackground(Color.WHITE);
-		btnNewButton_2.setIcon(new ImageIcon(MainInterface.class.getResource("/Sync/Images/goback.jpg")));
-		btnNewButton_2.setBounds(70, 0, 16, 21);
-		panel.add(btnNewButton_2);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(5, 48, 62, 262);
