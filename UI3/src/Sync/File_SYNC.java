@@ -108,10 +108,16 @@ public class File_SYNC {
 					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
 						tmp.add(null);
 					}else{
-						tmp.add(1); //标记传输方式 a->b
+						if(tmp.get(2).equals("")){
+							tmp.add(1); //标记传输方式 a->b
+						}else{
+							tmp.add(0);//不确定
+							tmp.set(0, false);
+						}
+							
 					}
 				}
-				if(tmp.get(3) instanceof Vector || (int)tmp.get(3)==1){ans.add(tmp);}
+				if(tmp.get(3)!=null){ans.add(tmp);} //如果为null就不要
 			}
 			if(last!=null)Map_a.remove(last);
 		}
@@ -136,10 +142,15 @@ public class File_SYNC {
 					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
 						tmp.add(null);
 					}else{
-						tmp.add(2); //标记传输方式 a->b
+						if(tmp.get(1).equals("")){
+							tmp.add(2); //标记传输方式 b->a
+						}else{
+							tmp.add(0);//不确定
+							tmp.set(0, false);
+						}
 					}
 				}
-				if(tmp.get(3) instanceof Vector ||(int)tmp.get(3)==2){ans.add(tmp);}
+				if(tmp.get(3)!=null){ans.add(tmp);}
 			}
 			if(last!=null)Map_b.remove(last);
 		}
