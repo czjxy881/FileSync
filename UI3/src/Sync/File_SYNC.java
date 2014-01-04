@@ -89,13 +89,13 @@ public class File_SYNC {
 			}
 		}
 		Vector tmp;
-		String last=null;
+		
 		if(Map_a!=null&&(kind==1||kind==3)){ //a->b
-			for(String s:Map_a.keySet()){
-				if(last!=null)Map_a.remove(last);
-				last=s;
+			Set<String> key=new TreeSet<String>(Map_a.keySet());
+			for(String s:key){
 				tmp=new Vector<>();
 				tmp.add(true);tmp.add(Map_a.get(s));
+				Map_a.remove(s);
 				if(Map_b==null||Map_b.get(s)==null){ 
 					tmp.add("");
 				}else{
@@ -108,7 +108,7 @@ public class File_SYNC {
 					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
 						tmp.add(null);
 					}else{
-						if(tmp.get(2).equals("")){
+						if(kind==1||tmp.get(2).equals("")){
 							tmp.add(1); //标记传输方式 a->b
 						}else{
 							tmp.add(0);//不确定
@@ -119,14 +119,11 @@ public class File_SYNC {
 				}
 				if(tmp.get(3)!=null){ans.add(tmp);} //如果为null就不要
 			}
-			if(last!=null)Map_a.remove(last);
 		}
 		
-		last=null;
 		if(Map_b!=null&&(kind==2||kind==3)){ //b->a
-			for(String s:Map_b.keySet()){
-				if(last!=null)Map_b.remove(last);
-				last=s;
+			Set<String> key=new TreeSet<String>(Map_b.keySet());
+			for(String s:key){
 				tmp=new Vector<>();
 				tmp.add(true);
 				if(Map_a==null||Map_a.get(s)==null){ 
@@ -136,13 +133,14 @@ public class File_SYNC {
 					Map_a.remove(s);
 				}
 				tmp.add(Map_b.get(s));
+				Map_b.remove(s);
 				if((new File((String)tmp.get(1))).isDirectory()){ //如果是文件夹
 					tmp.add(diff((String)tmp.get(1),(String)tmp.get(2),kind));//递归查找
 				}else{
 					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
 						tmp.add(null);
 					}else{
-						if(tmp.get(1).equals("")){
+						if(kind==2||tmp.get(1).equals("")){
 							tmp.add(2); //标记传输方式 b->a
 						}else{
 							tmp.add(0);//不确定
@@ -152,7 +150,6 @@ public class File_SYNC {
 				}
 				if(tmp.get(3)!=null){ans.add(tmp);}
 			}
-			if(last!=null)Map_b.remove(last);
 		}
 		
 		
@@ -164,5 +161,6 @@ public class File_SYNC {
 	public static void main(String[] args) {
 		Vector ans=diff("C:\\Users\\jxy1\\Desktop\\test\\1", "C:\\Users\\jxy1\\Desktop\\test\\2", 3);
 		int a=0;
+		int b=a;
 	}
 }
