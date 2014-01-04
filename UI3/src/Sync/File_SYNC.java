@@ -2,14 +2,23 @@ package Sync;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 import java.util.Timer;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Vector;
 
 /**
@@ -22,17 +31,11 @@ import java.util.Vector;
 public class File_SYNC {
 	
 	/**
-	 * 用于比较两个文件夹中差异文件，如果文件夹不存在则返回null
-	 * @param org 源目录路径
+	 * 利用NIO库复制，覆盖复制
+	 * @param org 源路径
 	 * @param aim 目标路径
-	 * @return 返回差异文件，第一列为源文件路径，第二列目标文件路径，第三列为文件类型或者差异大小Vector，0代表无差异，1代表从org到aim，2为aim到org，3为都存在需要用户选择，
-	 * 
+	 * @return 成功为ture 失败为false
 	 */
-	public static Vector  diff_floder(String org,String aim){
-		Vector ans=new Vector<>();
-		return ans;
-	}
-	
 	public static boolean move(String org,String aim)
 	{
 		Path a=Paths.get(org),b=Paths.get(aim);
@@ -40,41 +43,115 @@ public class File_SYNC {
 			Files.copy(a, b,  new CopyOption[] { REPLACE_EXISTING });
 			return true;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
+	}
+	/**
+	 * 判断文件A,B是否相同
+	 * @param A
+	 * @param B
+	 * @return 
+	 */
+	public static boolean is_same(String A,String B){
+		if(A.equals("")||B.equals(""))return false;
+		File a=new File(A),b=new File(B);
+		if(a.getTotalSpace()==b.getTotalSpace()&&a.lastModified()==b.lastModified()){
+			return true;
+		}else{
+			//TODO MD5
+			return false;
+		}
+	}
+	/**
+	 * 得出A,B文件夹匹配结果
+	 * @param A 文件夹目录
+	 * @param B 文件夹目录
+	 * @param kind 0 none 1 a->b 2 b->a 3 a->b,b->a
+	 * @return  choose,patha,pathb,vector or null
+	 */
+	public static Vector diff(String A,String B,int kind){
+		Vector ans=new Vector<>();
+		File file_a,file_b;
+		Map<String, String> Map_a=null,Map_b=null;
+		if(!A.equals("")){ //A不为空
+			file_a=new File(A);
+			Map_a=new TreeMap<String, String>();	
+			for(File s:file_a.listFiles()){
+				Map_a.put(s.getName(),s.getAbsolutePath());
+			}
+		}
+		if(!B.equals("")){ //B不为空
+			file_b=new File(B);
+			Map_b=new TreeMap<String, String>();
+			for(File s:file_b.listFiles()){
+				Map_b.put(s.getName(), s.getAbsolutePath());
+			}
+		}
+		Vector tmp;
+		String last=null;
+		if(Map_a!=null&&(kind==1||kind==3)){ //a->b
+			for(String s:Map_a.keySet()){
+				if(last!=null)Map_a.remove(last);
+				last=s;
+				tmp=new Vector<>();
+				tmp.add(true);tmp.add(Map_a.get(s));
+				if(Map_b==null||Map_b.get(s)==null){ 
+					tmp.add("");
+				}else{
+					tmp.add(Map_b.get(s));
+					Map_b.remove(s);
+				}
+				if((new File((String)tmp.get(1))).isDirectory()){ //如果是文件夹
+					tmp.add(diff((String)tmp.get(1),(String)tmp.get(2),kind));//递归查找
+				}else{
+					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
+						tmp.add(null);
+					}else{
+						tmp.add(1); //标记传输方式 a->b
+					}
+				}
+				if(tmp.get(3) instanceof Vector || (int)tmp.get(3)==1){ans.add(tmp);}
+			}
+			if(last!=null)Map_a.remove(last);
+		}
 		
+		last=null;
+		if(Map_b!=null&&(kind==2||kind==3)){ //b->a
+			for(String s:Map_b.keySet()){
+				if(last!=null)Map_b.remove(last);
+				last=s;
+				tmp=new Vector<>();
+				tmp.add(true);
+				if(Map_a==null||Map_a.get(s)==null){ 
+					tmp.add("");
+				}else{
+					tmp.add(Map_a.get(s));
+					Map_a.remove(s);
+				}
+				tmp.add(Map_b.get(s));
+				if((new File((String)tmp.get(1))).isDirectory()){ //如果是文件夹
+					tmp.add(diff((String)tmp.get(1),(String)tmp.get(2),kind));//递归查找
+				}else{
+					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
+						tmp.add(null);
+					}else{
+						tmp.add(2); //标记传输方式 a->b
+					}
+				}
+				if(tmp.get(3) instanceof Vector ||(int)tmp.get(3)==2){ans.add(tmp);}
+			}
+			if(last!=null)Map_b.remove(last);
+		}
+		
+		
+		if(ans.size()==0){ans=null;}//方便空文件夹自动忽略
+		return ans;
 	}
 	
-	class t extends Thread{
-		String o,g;
-		public t(String a,String b){
-			o=a;g=b;
-		}
-		public void run(){
-			File_SYNC.move(o, g);
-		}
-	}
+
 	public static void main(String[] args) {
-		Date time=new Date();
-		long t=time.getTime();
-		System.out.println(time.getTime());
-		for(int i=0;i<100;i++){
-			//File_SYNC.move("C:\\Users\\jxy1\\Desktop\\test\\1.txt","C:\\Users\\jxy1\\Desktop\\test\\1\\"+String.valueOf(i)+".txt");
-			//System.out.println(i);
-		}
-		System.out.println("test1 "+time.getTime()+","+t);
-		
-		t=time.getTime();
-		Thread []s=new Thread[100];
-		for(int i=0;i<100;i++){
-			s[i]=new File_SYNC().new t("C:\\Users\\jxy1\\Desktop\\test\\1.txt","C:\\Users\\jxy1\\Desktop\\test\\2\\"+String.valueOf(i)+".txt");
-		}
-		for(int i=0;i<100;i++){
-			s[i].start();
-			//System.out.println(i);
-		}
-		System.out.println("test2 "+time.getTime()+","+t);
-		}
+		Vector ans=diff("C:\\Users\\jxy1\\Desktop\\test\\1", "C:\\Users\\jxy1\\Desktop\\test\\2", 3);
+		int a=0;
+	}
 }
