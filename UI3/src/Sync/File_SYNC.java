@@ -77,6 +77,7 @@ public class File_SYNC {
 		if(!A.equals("")){ //A不为空
 			file_a=new File(A);
 			Map_a=new TreeMap<String, String>();	
+			if(file_a.list()!=null)
 			for(File s:file_a.listFiles()){
 				Map_a.put(s.getName(),s.getAbsolutePath());
 			}
@@ -84,6 +85,7 @@ public class File_SYNC {
 		if(!B.equals("")){ //B不为空
 			file_b=new File(B);
 			Map_b=new TreeMap<String, String>();
+			if(file_b.list()!=null)
 			for(File s:file_b.listFiles()){
 				Map_b.put(s.getName(), s.getAbsolutePath());
 			}
@@ -159,7 +161,7 @@ public class File_SYNC {
 	
 
 	public static void main(String[] args) {
-		Vector ans=diff("C:\\Users\\jxy1\\Desktop\\test\\1", "C:\\Users\\jxy1\\Desktop\\test\\2", 3);
+		Vector ans=diff("D:\\", "F:\\", 3);
 		int a=0;
 		int b=a;
 	}
