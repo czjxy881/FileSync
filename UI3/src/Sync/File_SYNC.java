@@ -136,7 +136,7 @@ public class File_SYNC {
 				}
 				tmp.add(Map_b.get(s));
 				Map_b.remove(s);
-				if((new File((String)tmp.get(2))).isDirectory()){ //如果是文件夹
+				if((new File((String)tmp.get(1))).isDirectory()){ //如果是文件夹
 					tmp.add(diff((String)tmp.get(1),(String)tmp.get(2),kind));//递归查找
 				}else{
 					if(is_same((String)tmp.get(1),(String)tmp.get(2))){
@@ -155,7 +155,7 @@ public class File_SYNC {
 		}
 		
 		
-		if(ans.size()==0){ans=null;}//方便空文件夹自动忽略                                                                         
+		if(ans.size()==0){ans=null;}//方便空文件夹自动忽略
 		return ans;
 	}
 	
